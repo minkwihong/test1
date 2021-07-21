@@ -7,7 +7,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
 	state: {
-		dsId: '',
+		email: '',
+		role: '',
 	},
 	getters: {
 		gettersDsId(state) {
@@ -22,7 +23,8 @@ export const store = new Vuex.Store({
 	},
 	mutations: {
 		COMMIT_GET_LOGIN(state, { data }) {
-			state.dsId = data.data.resultVal.dsId;
+			state.email = data.userDetail.email;
+			state.role = data.userDetail.role;
 		},
 	},
 });
