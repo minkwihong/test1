@@ -1,11 +1,17 @@
 <template>
 	<div>
 		<slot></slot>
+    <page-footer></page-footer>
 	</div>
 </template>
 
 <script>
-export default {};
+import PageFooter from "@/views/layout/PageFooter";
+export default {
+    components:{
+        PageFooter
+    }
+};
 </script>
 
 <style></style>
