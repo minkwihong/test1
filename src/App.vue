@@ -1,28 +1,16 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <layout-extends>
+    <router-view></router-view>
+  </layout-extends>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import LayoutExtends from '@/views/layout/LayoutExtends';
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    LayoutExtends,
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style src="@/assets/css/common.css"></style>
