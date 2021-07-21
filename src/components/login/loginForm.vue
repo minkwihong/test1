@@ -72,19 +72,20 @@ export default {
   },
   methods : {
     async goSubmit(){
-        alert()
         const param = {
-          email : this.email,
+            email : this.email,
             password : this.password
         }
-      try{
-        const result = await getLogin(param);
 
-
-        alert(JSON.stringify(result))
-      }catch (e){
-          alert(e)
-      }
+        try{
+            const result = await getLogin(param);
+            console.log(result.data.token)
+            console.log(result.data.userDetails.email)
+            console.log(result.data.userDetails.password)
+            console.log(result.data.userDetails.role)
+        }catch (e){
+            alert(e)
+        }
 
 
       //alert('result ::: ' + result)
