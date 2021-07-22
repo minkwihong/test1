@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getLogin } from '@/api/login/index';
+import { loginProcess } from '@/api/login/auth';
 //import { setCookie } from '@/utils/utils';
 
 Vue.use(Vuex);
@@ -11,13 +11,16 @@ export const store = new Vuex.Store({
 		role: '',
 	},
 	getters: {
-		gettersDsId(state) {
-			return state.dsId;
+		gettersEmail(state) {
+			return state.email;
+		},
+		gettersRole(state) {
+			return state.role;
 		},
 	},
 	actions: {
 		async FECTH_GET_LOGIN({ commit }, data) {
-			const loginData = await getLogin(data);
+			const loginData = await loginProcess(data);
 			commit('COMMIT_GET_LOGIN', loginData);
 		},
 	},
