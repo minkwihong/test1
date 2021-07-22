@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { getLogin } from '@/api/login/index';
+import { loginProcess } from '@/api/login/auth';
 export default {
   data(){
     return {
@@ -78,7 +78,7 @@ export default {
         }
 
         try{
-            const result = await getLogin(param);
+            const result = await loginProcess(param);
             console.log(result.data.token)
             console.log(result.data.userDetails.email)
             console.log(result.data.userDetails.password)

@@ -1,7 +1,7 @@
 export function setInterceptor(instance) {
 	instance.interceptors.request.use(
 		function(config) {
-			console.log('api success ---- ');
+			console.log('request init ---- ');
 			// 요청 성공 직전 호출됩니다.
 			// axios 설정값을 넣습니다. (사용자 정의 설정도 추가 가능)
 			return config;
@@ -18,6 +18,7 @@ export function setInterceptor(instance) {
 */
 	instance.interceptors.response.use(
 		function(response) {
+			console.log('response init ---- ');
 			/*
         http status가 200인 경우
         응답 성공 직전 호출됩니다. 
