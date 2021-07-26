@@ -6,11 +6,11 @@ import { loginProcess } from '@/api/login/auth';
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-	state: {
+	state: { // STATE
 		email: '',
 		role: '',
 	},
-	getters: {
+	getters: { //GETTERS
 		gettersEmail(state) {
 			return state.email;
 		},
@@ -18,13 +18,13 @@ export const store = new Vuex.Store({
 			return state.role;
 		},
 	},
-	actions: {
+	actions: { // 비동기
 		async FECTH_GET_LOGIN({ commit }, data) {
 			const loginData = await loginProcess(data);
 			commit('COMMIT_GET_LOGIN', loginData);
 		},
 	},
-	mutations: {
+	mutations: { // 동기
 		COMMIT_GET_LOGIN(state, { data }) {
 			state.email = data.userDetail.email;
 			state.role = data.userDetail.role;
