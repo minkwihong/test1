@@ -1,7 +1,17 @@
+import store from '@/store';
+
+// api request 시 interceptor
 export function setInterceptor(instance) {
 	instance.interceptors.request.use(
 		function(config) {
 			console.log('request init ---- ');
+
+			if(store.state.auth.token !== null){ // token 이 없으면
+				config['headers'] = {
+					Authorization : `Bearer : ${store.state.auth.token}`
+				}
+			}
+			console.log('hearder Authorization => ' +  config.headers.Authorization)
 			// 요청 성공 직전 호출됩니다.
 			// axios 설정값을 넣습니다. (사용자 정의 설정도 추가 가능)
 			return config;

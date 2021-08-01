@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import App from './App.vue';
 import { router } from '@/routes/index';
-import { store } from '@/store/index';
-
+import store  from '@/store';
+/*
 var options = {
   persist: true,
-};
+};*/
 
 Vue.config.productionTip = false
 

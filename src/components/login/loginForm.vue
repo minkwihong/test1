@@ -62,6 +62,7 @@
 
 <script>
 import { loginProcess } from '@/api/login/auth';
+
 export default {
   data(){
     return {
@@ -78,11 +79,12 @@ export default {
         }
 
         try{
-            const result = await loginProcess(param);
-            console.log(result.data.token)
-            console.log(result.data.userDetails.email)
-            console.log(result.data.userDetails.password)
-            console.log(result.data.userDetails.role)
+            const isSuccess =  await loginProcess(param);
+
+            if(isSuccess){
+              console.log('login sucess @@@@@')
+              this.$router.push('/user/dashboard')
+            }
         }catch (e){
             alert(e)
         }

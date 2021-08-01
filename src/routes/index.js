@@ -16,5 +16,10 @@ export const router = new VueRouter({
 			redirect: '/login',
 		},
 		{ path: '*', component: () => import('@/views/error/error404') },
+		{
+			path: '/user/dashboard',
+			component: () => import('@/components/user/dashboardForm'),
+			meta: { layout: 'LayoutDefault' },
+		},
 	],
 });
