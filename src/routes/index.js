@@ -1,7 +1,25 @@
 import VueRouter from 'vue-router';
 import Vue from 'vue';
+import store from '@/store';
 
 Vue.use(VueRouter);
+
+/**
+ * vue router 인증체크
+ * @param isAuth
+ * @returns {(function(*, *, *): (*))|*}
+ */
+const beforeAuth = isAuth => (from, to, next) => {
+	console.log('before router go ==> ')
+	const isAuthenticated = store.getters["auth/getAuthenticated"]
+	console.log('isAuthenticated ::: ' + isAuthenticated)
+	if ((isAuthenticated && isAuth) || (!isAuthenticated && !isAuth)) {
+		return next()
+	} else {
+		// 홈 화면으로 이동
+		return next()
+	}
+}
 
 export const router = new VueRouter({
 	mode: 'history',
@@ -10,6 +28,7 @@ export const router = new VueRouter({
 			path: '/login',
 			component: () => import('@/components/login/loginForm'),
 			meta: { layout: 'LayoutDefault' },
+			beforeEnter: beforeAuth(false),
 		},
 		{
 			path: '/',
@@ -20,6 +39,7 @@ export const router = new VueRouter({
 			path: '/user/dashboard',
 			component: () => import('@/components/user/dashboardForm'),
 			meta: { layout: 'LayoutDefault' },
+			beforeEnter: beforeAuth(true),
 		},
 	],
 });

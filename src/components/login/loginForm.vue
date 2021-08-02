@@ -48,9 +48,9 @@
 
         <!-- sns login -->
         <div class="sns_login">
-          <p><img src="@/assets/img/icon_google.png" alt="googleSns">Sign in with Google</p>
-          <p><img src="@/assets/img/icon_facebook.png" alt="facebookSns">Sign in with facebook</p>
-          <p><img src="@/assets/img/icon_twitter.png" alt="twitterSns">Sign in with Twitter</p>
+          <p @click="goSnsLogin('google')" ><img src="@/assets/img/icon_google.png"  alt="googleSns">Sign in with Google</p>
+          <p @click="goSnsLogin('facebook')" ><img src="@/assets/img/icon_facebook.png"  alt="facebookSns">Sign in with facebook</p>
+          <p @click="goSnsLogin('twitter')" ><img src="@/assets/img/icon_twitter.png"   alt="twitterSns">Sign in with Twitter</p>
         </div>
 
 
@@ -61,8 +61,7 @@
 </template>
 
 <script>
-import { loginProcess } from '@/api/login/auth';
-
+//import { mapActions } from 'vuex'
 export default {
   data(){
     return {
@@ -79,19 +78,29 @@ export default {
         }
 
         try{
-            const isSuccess =  await loginProcess(param);
+          const result = await this.$store.dispatch('FETCH_LOGIN_USER',param);
 
-            if(isSuccess){
-              console.log('login sucess @@@@@')
-              this.$router.push('/user/dashboard')
-            }
-        }catch (e){
+          console.log('login result ==> ' + result)
+          if(result){
+            this.$router.push('/user/dashboard');
+          }
+
+         }catch (e){
             alert(e)
         }
+    },
+    getForgotPw(){
+      alert();
+    },
+    async goSnsLogin(type){
+      const param = {
+        email : this.email,
+        password : '',
+        type : type
+      }
 
-
-      //alert('result ::: ' + result)
-
+      const result2 = await this.$store.dispatch('FETCH_SNS_LOGIN_USER',param);
+      console.log('login result ==> ' + result2)
 
     }
   }
