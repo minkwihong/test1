@@ -38,7 +38,8 @@ export const router = new VueRouter({
 			path: '/',
 			redirect: '/main',
 		},
-		{ path: '*', component: () => import('@/views/error/error404') },
+		{ 	path: '*',
+			component: () => import('@/views/error/error404') },
 		{
 			path: '/user/dashboard',
 			component: () => import('@/components/user/dashboardForm'),

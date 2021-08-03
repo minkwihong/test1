@@ -77,8 +77,9 @@ export default {
         }
 
         try{
+            this.$loading(true);
             const result = await this.$store.dispatch('FETCH_LOGIN_USER',param);
-
+            this.$loading(false);
             console.log('login result ==> ' + result)
             if(result){
               this.$router.push('/user/dashboard');
@@ -91,6 +92,7 @@ export default {
       alert();
     },
     async goSnsLogin(type){
+
       try{
           const param = {
             email : this.email,

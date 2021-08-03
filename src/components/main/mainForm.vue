@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="video_box">
-          <video autoplay muted loop src="/src/assets/img/landing.mov" height="700px"></video>
+          <video autoplay muted loop src="src/assets/img/landing.mov" height="700px"></video>
         </div>
 
         <div class="free_trial">
@@ -82,7 +82,7 @@
           </div>
         </div>
 
-        <router-link to="">
+        <router-link to="/user/product">
           Subscribe Now
         </router-link>
       </div>

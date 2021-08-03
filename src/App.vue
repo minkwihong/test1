@@ -6,6 +6,7 @@
 
 <script>
 import LayoutExtends from '@/views/layout/LayoutExtends';
+
 export default {
   components: {
     LayoutExtends,

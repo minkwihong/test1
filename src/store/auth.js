@@ -6,13 +6,14 @@ export default {
     state : () => ({
         token : localStorage.getItem("token")
         ,userDetails : localStorage.getItem("userDetails")
-        ,authenticated : !!localStorage.getItem("userDetails")
-        ,isAuth : false
+        ,authenticated : !!localStorage.getItem("token")
+        ,isAuth : ''
     }),
     getters: {
         getToken: (state) => state.token,
         getAuthenticated: (state) => state.authenticated,
         getIsAuth: (state) => state.isAuth,
+        getUserDetails: (state) => state.userDetails,
     },
     mutations : {
         setToken(state,payload){
@@ -26,6 +27,9 @@ export default {
 
             localStorage.removeItem('token'); // localstorage 저장
             localStorage.removeItem('userDetails'); // localstorage 저장
+            state.token = '';
+            state.userDetails = '';
+            state.authenticated = false;
 
             state.isAuth = false;
         }
@@ -59,6 +63,12 @@ export default {
             }catch(e){
                 alert(e)
             }
+        },
+        FETCH_LOGOUT(context){
+
+            context.commit('deleteToken');
+
+            return this.getters.getIsAuth;
         }
 
     }
