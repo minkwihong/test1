@@ -12,8 +12,10 @@ $(function(){
     // question 문제풀이 활성화
     $('.question ul li p').on('click',function(){
         var idx = $(this).parents().index();
-        $('.question ul li').removeClass('active');
-        $(this).parents().addClass('active');
+		$('.question ul li').removeClass('active');
+		$(this)
+			.parents()
+			.addClass('active');
         $('.question ul li').eq(idx).find('input[type=radio]').prop('checked',true);
         $(this).removeClass('active');
     })
@@ -65,7 +67,7 @@ $(function(){
             $('.popup_bg').show();
             $('.popup').show();
         }
-        
+
         $('.question h2 span').text(questionIdx);
     })
 

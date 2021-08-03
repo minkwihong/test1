@@ -1,5 +1,5 @@
 import { loginProcess ,loginSnsProcess ,chkEmail } from "../api/login/auth";
-
+// import constant from '@/constant';
 
 export default {
     namespace : true,
@@ -81,7 +81,6 @@ export default {
 
             try{
                 if(response.status == 200) {
-                    console.log('response ==> ' + response.data);
                     context.commit('emailChk', response);
                 }
             }catch(e){

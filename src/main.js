@@ -4,13 +4,11 @@ import { router } from '@/routes/index';
 import store from '@/store';
 import spinner from '@/common/spinner';
 
-
-Vue.config.productionTip = false
-
-
+Vue.config.productionTip = false;
 
 new Vue({
-  router,
-  store,
-  render: h => h(App),
-}).$mount('#app')
+	router,
+	store,
+	spinner,
+	render: h => h(App),
+}).$mount('#app');
