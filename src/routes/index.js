@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router';
 import Vue from 'vue';
 import store from '@/store';
+//import {PERMIT_ALL} from '@/constant';
 
 Vue.use(VueRouter);
 
@@ -11,11 +12,14 @@ Vue.use(VueRouter);
  */
 const beforeAuth = isAuth => (from, to, next) => {
 	console.log('before router go ==> ')
-	const isAuthenticated = store.getters["auth/getAuthenticated"]
+	const isAuthenticated = store.getters["getAuthenticated"]
 	console.log('isAuthenticated ::: ' + isAuthenticated)
-	if ((isAuthenticated && isAuth) || (!isAuthenticated && !isAuth)) {
+
+
+	if ((isAuthenticated && isAuth) || (!isAuthenticated && !isAuth)) { // true && true || false && false
 		return next()
 	} else {
+		alert('홈화면으로');
 		// 홈 화면으로 이동
 		return next()
 	}
@@ -28,11 +32,11 @@ export const router = new VueRouter({
 			path: '/login',
 			component: () => import('@/components/login/loginForm'),
 			meta: { layout: 'LayoutDefault' },
-			beforeEnter: beforeAuth(false),
+			//beforeEnter: beforeAuth(false),
 		},
 		{
 			path: '/',
-			redirect: '/login',
+			redirect: '/main',
 		},
 		{ path: '*', component: () => import('@/views/error/error404') },
 		{
@@ -40,6 +44,12 @@ export const router = new VueRouter({
 			component: () => import('@/components/user/dashboardForm'),
 			meta: { layout: 'LayoutDefault' },
 			beforeEnter: beforeAuth(true),
+		},
+		{
+			path: '/main',
+			component: () => import('@/components/main/mainForm'),
+			meta: { layout: 'LayoutDefault' },
+			//beforeEnter: beforeAuth(true),
 		},
 	],
 });

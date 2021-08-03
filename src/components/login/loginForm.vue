@@ -21,7 +21,7 @@
               </button>
             </li>
             <li>
-              <input type="button" @click="goSubmit" value="LOGIN">
+              <input type="submit"  value="LOGIN">
             </li>
           </ul>
         </form>
@@ -39,7 +39,7 @@
               <form action="">
                 <ul>
                   <li><input type="email" placeholder="Email" name="email"></li>
-                  <li><input type="button" @click="goSubmit" value="Send"></li>
+                  <li><input type="button"  value="Send"></li>
                 </ul>
               </form>
             </div>
@@ -61,7 +61,6 @@
 </template>
 
 <script>
-//import { mapActions } from 'vuex'
 export default {
   data(){
     return {
@@ -78,14 +77,13 @@ export default {
         }
 
         try{
-          const result = await this.$store.dispatch('FETCH_LOGIN_USER',param);
+            const result = await this.$store.dispatch('FETCH_LOGIN_USER',param);
 
-          console.log('login result ==> ' + result)
-          if(result){
-            this.$router.push('/user/dashboard');
-          }
-
-         }catch (e){
+            console.log('login result ==> ' + result)
+            if(result){
+              this.$router.push('/user/dashboard');
+            }
+        }catch (e){
             alert(e)
         }
     },
@@ -93,15 +91,18 @@ export default {
       alert();
     },
     async goSnsLogin(type){
-      const param = {
-        email : this.email,
-        password : '',
-        type : type
+      try{
+          const param = {
+            email : this.email,
+            password : '',
+            type : type
+          }
+
+          const result2 = await this.$store.dispatch('FETCH_SNS_LOGIN_USER',param);
+          console.log('login result ==> ' + result2);
+      }catch (e){
+          alert(e)
       }
-
-      const result2 = await this.$store.dispatch('FETCH_SNS_LOGIN_USER',param);
-      console.log('login result ==> ' + result2)
-
     }
   }
 

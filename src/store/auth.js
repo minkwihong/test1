@@ -1,35 +1,33 @@
-import {loginProcess } from "../api/login/auth";
-import {loginSnsProcess } from "../api/login/auth";
+import { loginProcess } from "../api/login/auth";
+import { loginSnsProcess } from "../api/login/auth";
 
 export default {
     namespace : true,
     state : () => ({
         token : localStorage.getItem("token")
         ,userDetails : localStorage.getItem("userDetails")
-        ,isAuth : !!localStorage.getItem("token")
+        ,authenticated : !!localStorage.getItem("userDetails")
+        ,isAuth : false
     }),
-    getters : {
-        getToken: (state) => {
-            return state.token;
-        },
-        getUserDetails: (state) => {
-            return state.userDetails;
-        },
-        getAuthenticated: (state) => {
-            return state.authenticated;
-        }
+    getters: {
+        getToken: (state) => state.token,
+        getAuthenticated: (state) => state.authenticated,
+        getIsAuth: (state) => state.isAuth,
     },
     mutations : {
         setToken(state,payload){
 
-            console.log('token ::: ' + payload.token)
-            console.log('userDetails ::: ' + payload.userDetails.email)
-            state.token = payload.token;
-            state.userDetails = payload.userDetails;
-            localStorage.setItem('token',state.token); // localstorage 저장
-            localStorage.setItem('userDetails',state.userDetails); // localstorage 저장
+            localStorage.setItem('token',payload.token); // localstorage 저장
+            localStorage.setItem('userDetails',payload.userDetails); // localstorage 저장
+            localStorage.getItem("token") !== null ? state.authenticated = true : state.authenticated = false;
+            state.isAuth = true;
+        },
+        deleteToken(state){
 
-            this.state.isAuth = true;
+            localStorage.removeItem('token'); // localstorage 저장
+            localStorage.removeItem('userDetails'); // localstorage 저장
+
+            state.isAuth = false;
         }
     },
     actions : {
@@ -39,10 +37,11 @@ export default {
                 const response = await loginProcess(payload);
 
                 if(response.status == 200){
-                    context.commit('setToken', response.data);
-                }else this.state.isAuth = false;
 
-                return this.state.isAuth;
+                    context.commit('setToken', response.data);
+                }
+
+                return this.getters.getIsAuth;
             }catch(e){
                 alert('아이디, 비밀번호를 확인해주세요.' + e)
             }
@@ -54,9 +53,9 @@ export default {
                 const response = await loginSnsProcess(payload)
                 if(response.status == 200){
                     context.commit('setToken', response.data);
-                }else this.state.isAuth = false;
+                }
 
-                return this.state.isAuth;
+                return this.getters.getIsAuth;
             }catch(e){
                 alert(e)
             }
