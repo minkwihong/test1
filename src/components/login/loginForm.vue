@@ -28,18 +28,26 @@
 
         <!-- forgot pw -->
         <div class="forgot_pw">
-          <a>Forgot password?</a>
+          <a @click="getForgotPw">Forgot password?</a>
           <!-- 클릭 시 display block -->
-          <div class="pop_bg">
-            <div class="pw_popup">
-              <div class="close">
+          <div class="pop_bg" v-show="isForgotPop">
+            <div class="email_pop" v-show="false">
+              Verification email has been sent to <span>ajax연결</span>. Click the button in the
+              email and sign up.
+
+              <ul>
+                <li class="email_check" >Yes</li>
+              </ul>
+            </div>
+            <div class="pw_popup" v-show="isForgotPop">
+              <div class="close" @click="goFotgotClosePop">
                 <p>Write your registered email.</p>
                 <img src="@/assets/img/icon_close.png" alt="close">
               </div>
-              <form action="">
+              <form name="">
                 <ul>
-                  <li><input type="email" placeholder="Email" name="email"></li>
-                  <li><input type="button"  value="Send"></li>
+                  <li><input type="email"   placeholder="Email" name="emailP" v-model="emailChk"  ></li>
+                  <li><input type="button" @click="goEmailChk" value="Send"></li>
                 </ul>
               </form>
             </div>
@@ -65,7 +73,9 @@ export default {
   data(){
     return {
       email :'',
-      password : ''
+      password : '',
+      isForgotPop : false,
+      emailChk : ''
     }
 
   },
@@ -89,7 +99,7 @@ export default {
         }
     },
     getForgotPw(){
-      alert();
+      this.isForgotPop = true;
     },
     async goSnsLogin(type){
 
@@ -105,7 +115,25 @@ export default {
       }catch (e){
           alert(e)
       }
+    },
+    goFotgotClosePop(){
+      this.isForgotPop = false;
+    },
+    async goEmailChk(){
+      const param = {
+        email : this.emailChk
+      }
+
+      this.$loading(true);
+      const result = await this.$store.dispatch('FETCH_EMAIL_CHK',param);
+      this.$loading(false);
+
+      if(result){
+        alert('email check success')
+        this.goFotgotClosePop();
+      }
     }
+
   }
 
 }

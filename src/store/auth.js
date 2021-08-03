@@ -1,5 +1,5 @@
-import { loginProcess } from "../api/login/auth";
-import { loginSnsProcess } from "../api/login/auth";
+import { loginProcess ,loginSnsProcess ,chkEmail } from "../api/login/auth";
+
 
 export default {
     namespace : true,
@@ -8,12 +8,14 @@ export default {
         ,userDetails : localStorage.getItem("userDetails")
         ,authenticated : !!localStorage.getItem("token")
         ,isAuth : ''
+        ,emailChk : false
     }),
     getters: {
         getToken: (state) => state.token,
         getAuthenticated: (state) => state.authenticated,
         getIsAuth: (state) => state.isAuth,
         getUserDetails: (state) => state.userDetails,
+        getEmailChk: (state) => state.emailChk
     },
     mutations : {
         setToken(state,payload){
@@ -32,6 +34,11 @@ export default {
             state.authenticated = false;
 
             state.isAuth = false;
+        },
+        emailChk(state,{data}){
+            if(data == 'OK'){
+                state.emailChk = true;
+            }else state.emailChk = false;
         }
     },
     actions : {
@@ -41,7 +48,6 @@ export default {
                 const response = await loginProcess(payload);
 
                 if(response.status == 200){
-
                     context.commit('setToken', response.data);
                 }
 
@@ -69,6 +75,20 @@ export default {
             context.commit('deleteToken');
 
             return this.getters.getIsAuth;
+        },
+        async FETCH_EMAIL_CHK(context,payload){
+            const response = await chkEmail(payload);
+
+            try{
+                if(response.status == 200) {
+                    console.log('response ==> ' + response.data);
+                    context.commit('emailChk', response);
+                }
+            }catch(e){
+                alert(e)
+            }
+
+            return this.getters.getEmailChk;
         }
 
     }
