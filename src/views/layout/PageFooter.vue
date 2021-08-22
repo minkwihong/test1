@@ -8,8 +8,8 @@
 			registered trademark of ACT, Inc.
 		</p>
 		<ul class="Privacy">
-			<li><a href="terms.html">Terms of Use</a></li>
-			<li><a href="terms.html">Privacy Policy</a></li>
+			<li><router-link to="/terms">Terms of Use</router-link></li>
+			<li><router-link to="/private">Privacy Policy</router-link></li>
 		</ul>
 	</footer>
 </template>

@@ -73,7 +73,7 @@
 										/>
 									</li>
 									<li>
-										<input type="button" @click="goEmailChk" value="Send" />
+										<input type="button" @click="goEmailSend" value="Send" />
 									</li>
 								</ul>
 							</form>
@@ -133,18 +133,13 @@ export default {
 		getForgotPw() {
 			this.isForgotPop = true;
 		},
-		async goSnsLogin(type) {
+		goSnsLogin(type) {
 			try {
 				const param = {
-					email: this.email,
-					password: '',
-					type: type,
+					type,
 				};
 
-				const result2 = await this.$store.dispatch(
-					'FETCH_SNS_LOGIN_USER',
-					param,
-				);
+				const result2 = this.$store.dispatch('FETCH_SNS_LOGIN_USER', param);
 				console.log('login result ==> ' + result2);
 			} catch (e) {
 				alert(e);
@@ -153,7 +148,8 @@ export default {
 		goFotgotClosePop() {
 			this.isForgotPop = false;
 		},
-		async goEmailChk() {
+		// 이메일 잊어먹을경우
+		async goEmailSend() {
 			const param = {
 				email: this.emailChk,
 			};
@@ -163,7 +159,7 @@ export default {
 			this.$loading(false);
 
 			if (result) {
-				alert('email check success');
+				alert('send email password');
 				this.goFotgotClosePop();
 			}
 		},

@@ -4,6 +4,7 @@
 
 <script>
 import LoginForm from '@/components/login/loginForm';
+
 export default {
 	components: { LoginForm },
 };

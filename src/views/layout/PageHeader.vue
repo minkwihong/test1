@@ -1,6 +1,6 @@
 <template>
 	<header>
-		<div class="right_nav">
+		<div class="left_nav">
 			<h1 class="logo">
 				<router-link to="/main">
 					<img src="@/assets/img/logo.png" alt="logo"
@@ -29,7 +29,7 @@
 					<div class="logout_popbg" v-show="isShow">
 						<div class="logout_pop" v-show="isShow">
 							<p>Are you sure you want to log out?</p>
-							<a class="logoutNo">No</a>
+							<a class="logoutNo" @click="goCancel">No</a>
 							<a class="logoutYes" @click="goLogout">Yes</a>
 						</div>
 					</div>
@@ -41,7 +41,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import {mapGetters, mapMutations} from 'vuex';
+
 export default {
 	data() {
 		return {
@@ -63,6 +64,9 @@ export default {
 		},
 		goLogoutPop() {
 			this.isShow = true;
+		},
+		goCancel() {
+			this.isShow = false;
 		},
 	},
 };

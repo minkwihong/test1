@@ -14,12 +14,11 @@
 						<!--                <a href="javascript:void(0);">Start Your Free Trial</a>-->
 					</div>
 				</div>
-				<div class="video_box">
+				<div class="video_box video_container">
 					<video
-						autoplay
-						muted
-						loop
-						src="src/assets/img/landing.mov"
+						controls
+						ref="videoRef"
+						id="video-container"
 						height="700px"
 					></video>
 				</div>
@@ -97,8 +96,13 @@
 	</section>
 </template>
 
-<sciprt>
-
-</sciprt>
+<script>
+export default {
+	mounted: function() {
+		this.$refs.videoRef.src = '@/assets/img/landing.mov';
+		this.$refs.videoRef.play();
+	},
+};
+</script>
 
 <style></style>

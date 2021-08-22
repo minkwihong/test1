@@ -4,6 +4,7 @@
 
 <script>
 import mainForm from '@/components/main/mainForm';
+
 export default {
 	components: {
 		mainForm,
